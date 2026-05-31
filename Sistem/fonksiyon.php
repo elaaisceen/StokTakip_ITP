@@ -14,7 +14,7 @@
 			exit;
 		}else{
 			
-			echo "<meta http-equiv='refresh' content'$saniye;url=$url'>";
+			echo "<meta http-equiv='refresh' content='$saniye;url=$url'>";
 			exit;
 			
 		}
@@ -24,22 +24,12 @@
 
 
 
-	function temizle($text){
-		//baş ve sondaki boşlukları temizler
-		$text=trim($text);
+	function temizle($veri) {
+    // Veri null gelirse boş string'e çevir, yoksa string tipine zorla (cast)
+    $veri = (string)$veri; 
+    return trim(htmlspecialchars(strip_tags($veri)));
+}
 		
-		//HTML özel karakterleri temizler ve güvenli hale getirir
-		$text=htmlspecialchars($text);
-		
-		//HTML taglarini kaldır
-		$text=strip_tags($text);
-		
-		
-		return $text;
-		
-		
-		
-	}
 	function g($par){
 		$get=$_GET[$par] ?? '';
 		return strip_tags(trim(addslashes($get)));
@@ -55,30 +45,6 @@
 		
 	}
 	
-	
-	
-		function hesapNotumu($not2,$not1){
-			
-			$sonuc=($not1*40/100)+($not2*60/100);
-			
-			return $sonuc;
-			
-			
-		}
-		
-		function durumagoreHesapla($vize,$final,$quiz="yok"){
-			
-			if($quiz=="yok"){
-				$sonuc=($vize*40/100)+($final*60/100);
-				
-			}else{
-				
-				$sonuc=($vize*30/100)+($quiz*20/100)+($final*50/100);
-			}
-			
-			return $sonuc;
-			
-		}
 		
 		function giris($user,$password){
 				global $kullanici_adi;

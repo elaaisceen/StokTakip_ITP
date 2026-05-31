@@ -4,6 +4,8 @@ namespace Entities;
 
 class stokhareketleriEntity {
 	public $hareket_id;
+    public $urun_adi;
+    public $kullanici_adiSoyadi;
 	public $hareket_durummu;
 	public $miktar;
 	public $islem_durumu;

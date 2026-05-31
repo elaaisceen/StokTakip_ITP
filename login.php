@@ -2,14 +2,13 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-//require_once "sistem/config.php";
-require_once "../Sistem/loader.php";
-require_once "../Sistem/fonksiyon.php"; 
+require_once "Sistem/loader.php";
+require_once "Sistem/fonksiyon.php"; 
 
 
 ?>
 <!doctype html>
-<html lang="en">
+<html lang="tr">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,7 +22,8 @@ require_once "../Sistem/fonksiyon.php";
   
   <?php 
 
-	require_once $code->checkAccess() ? '../Pages/default.php' : '../Pages/loginform.php';
+	require_once $code->checkAccess() ? 'Pages/default.php' : 'Pages/loginform.php';
+
  
  ?>
 </html>

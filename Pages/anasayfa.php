@@ -1,160 +1,214 @@
-<div class="app-content-header">
-          <!--begin::Container-->
-          <div class="container-fluid">
-            <!--begin::Row-->
-            <div class="row">
-              <div class="col-sm-6">
-                <h3 class="mb-0">Dashboard</h3>
+<?php require_once(__DIR__ . "/../Sistem/header.php");?>
+
+  <style>
+    /* Kartların aşağıdan yukarı doğru sırayla gelmesi için */
+    .fade-up-card {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeUpAnim 0.8s ease-out forwards;
+    }
+    @keyframes fadeUpAnim {
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Progress barların yumuşakça dolması için */
+    .animasyonlu-bar {
+        transition: width 1.5s ease-in-out;
+    }
+
+    /* Dikey Progress Bar Konteyneri */
+.progress-vertical {
+    display: flex;
+    flex-direction: column-reverse; /* İçeriği alttan başlatır */
+    width: 16px; /* Barın kalınlığı */
+    height: 300px; /* Grafiğin toplam yüksekliği */
+    border-radius: 50px; /* Köşeleri yumuşatır */
+    background-color: rgba(255, 255, 255, 0.05); /* Arka plan izi */
+    margin: 0 auto;
+}
+
+/* Yükseklik Animasyonu */
+.animasyonlu-dikey-bar {
+    width: 100%;
+    border-radius: 50px;
+    transition: height 1.5s ease-in-out;
+}
+
+/* Şık ve Minimalist Renk Paleti */
+.bg-bordeaux { background-color: #800020; }
+.bg-beige { background-color: #D5C4A1; }
+.bg-elegant-white { background-color: #EAEAEA; }
+.bg-slate { background-color: #6C757D; }
+</style>
+
+<div class="container-fluid ">
+<h3 class="mb-0 text-primary">Sisteme Hoş Geldiniz</h3>
+<p class="text-muted">Lütfen işleme başlamak için sol taraftaki menüyü kullanın.</p>
+<?php $istatistikler = $code->metrikler(); ?>
+    <div class="body flex-grow-1">
+      <div class="container-lg px-4">
+        <div class="row g-4 mb-4">
+          <div class="col-sm-6 col-xl-3">
+
+          <!-- Kullanıcılar -->
+            <div class="card text-white bg-primary" style="overflow:hidden; position:relative;">
+              <div class="card-body pb-0">
+                <div class="fs-4 fw-semibold"><?php echo $istatistikler->aktif_kullanici; ?></div>
+                <div>Toplam Kullanıcı</div>
               </div>
-              <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-end">
-                  <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-                </ol>
+              <div class="c-chart-wrapper mt-3 mx-3" style="height:70px">
+                <canvas class="chart" id="card-chart1" height="70"></canvas>
+              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                   style="width:80px;height:80px;opacity:0.15;position:absolute;bottom:-10px;right:-5px;">
+                <path fill="white" d="M256 288a112 112 0 1 0-112-112 112.127 112.127 0 0 0 112 112Zm0-192a80 80 0 1 1-80 80 80.091 80.091 0 0 1 80-80Zm112 224H144A144.162 144.162 0 0 0 0 464v16h32v-16a112.127 112.127 0 0 1 112-112h224a112.127 112.127 0 0 1 112 112v16h32v-16a144.162 144.162 0 0 0-144-144Z"/>
+              </svg>
+            </div>
+          </div>
+
+  <!-- Kategoriler -->
+  <div class="col-sm-6 col-xl-3">
+    <div class="card text-white bg-info" style="overflow:hidden; position:relative;">
+      <div class="card-body pb-0">
+        <div class="fs-4 fw-semibold"><?php echo $istatistikler->toplam_kategori; ?></div>
+        <div>Toplam Kategori</div>
+      </div>
+      <div class="c-chart-wrapper mt-3 mx-3" style="height:70px">
+        <canvas class="chart" id="card-chart2" height="70"></canvas>
+      </div>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+           style="width:80px;height:80px;opacity:0.15;position:absolute;bottom:-10px;right:-5px;">
+        <path fill="white" d="M448 48H296L261.657 12H64A16.019 16.019 0 0 0 48 28v456a16.019 16.019 0 0 0 16 16h384a16.019 16.019 0 0 0 16-16V64a16.019 16.019 0 0 0-16-16Zm-16 424H80V44h168.343L282.687 80H432Z"/>
+        <path fill="white" d="M176 240h160v32H176zm0 80h160v32H176zm0-160h160v32H176z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Ürünler -->
+  <div class="col-sm-6 col-xl-3">
+    <div class="card text-white bg-warning" style="overflow:hidden; position:relative;">
+      <div class="card-body pb-0">
+        <div class="fs-4 fw-semibold"><?php echo $istatistikler->toplam_urun; ?></div>
+        <div>Toplam Ürün</div>
+      </div>
+      <div class="c-chart-wrapper mt-3" style="height:70px">
+        <canvas class="chart" id="card-chart3" height="70"></canvas>
+      </div>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+           style="width:80px;height:80px;opacity:0.15;position:absolute;bottom:-10px;right:-5px;">
+        <path fill="white" d="M480 192H352V64a32.036 32.036 0 0 0-32-32H64A32.036 32.036 0 0 0 32 64v256a32.036 32.036 0 0 0 32 32h32v96a32.036 32.036 0 0 0 32 32h320a32.036 32.036 0 0 0 32-32V224a32.036 32.036 0 0 0-32-32ZM64 320V64h256v128H160a32.036 32.036 0 0 0-32 32v96Zm416 128H160V224h320Z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Hareket -->
+  <div class="col-sm-6 col-xl-3">
+    <div class="card text-white bg-danger" style="overflow:hidden; position:relative;">
+      <div class="card-body pb-0">
+        <div class="fs-4 fw-semibold"><?php echo $istatistikler->guncel_hareket; ?></div>
+        <div>Güncel Hareket Durumu</div>
+      </div>
+      <div class="c-chart-wrapper mt-3 mx-3" style="height:70px">
+        <canvas class="chart" id="card-chart4" height="70"></canvas>
+      </div>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+           style="width:80px;height:80px;opacity:0.15;position:absolute;bottom:-10px;right:-5px;">
+        <path fill="white" d="M112 160h288v32H112zm0 80h208v32H112zm0 80h288v32H112zM480 32H32A32.036 32.036 0 0 0 0 64v384a32.036 32.036 0 0 0 32 32h448a32.036 32.036 0 0 0 32-32V64a32.036 32.036 0 0 0-32-32Zm0 416H32V64h448Z"/>
+      </svg>
+    </div>
+  </div>
+
+</div>
+              <div class="c-chart-wrapper mt-3 mx-3" style="height: 70px">
+                <canvas class="chart" id="card-chart4" height="70"></canvas>
               </div>
             </div>
-            <!--end::Row-->
           </div>
-          <!--end::Container-->
-</div>
+          <!-- /.col-->
+        </div>
+        <!-- /.row-->
 
-<?php $metrikler = $code->metrikler(); ?>
+        <!-- tarihsel grafik -->
 
-<div class="app-content">
-          <!--begin::Container-->
-          <div class="container-fluid">
-            <!--begin::Row-->
-            <div class="row">
-              <!--begin::Col-->
-              <div class="col-lg-3 col-6">
-                <!--begin::Small Box Widget 1-->
-                <div class="small-box text-bg-primary">
-                  <div class="inner">
-                    <h3><?php echo $metrikler->toplam_yonetici; ?></h3>
-
-                    <p>Yönetici Sayısı</p>
-                  </div>
-                  <svg
-                    class="small-box-icon"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-                 
-                        <path d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917z"/>
-  <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466z"/>
-                        
-                      
-                  </svg>
-                  <a
-                    href="#"
-                    class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
-                  >
-                    More info <i class="bi bi-link-45deg"></i>
-                  </a>
-                </div>
-                <!--end::Small Box Widget 1-->
+        <?php 
+				
+					$tarih=date("Y-m-d");
+					
+					$gunler=array(
+							'Monday'=>'Pazartesi',
+							'Tuesday'=>'Salı',
+							'Wednesday'=>'Çarşamba',
+							'Thursday'=>'Perşembe',
+							'Friday'=>'Cuma',
+							'Saturday'=>'Cumartesi',
+							'Sunday'=>'Pazar'
+							
+					);
+					
+					$gunIngilizce=date("l", strtotime($tarih));
+					$bugun=$gunler[$gunIngilizce];
+				?>
+        <div class="card mb-4">
+          <div class="card-body p-2">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h4 class="card-title mb-0">İstatistikler</h4>
+                <div class="small text-body-secondary"><?php echo $bugun; ?>, <?php echo $tarih; ?></div>
               </div>
-              <!--end::Col-->
-              <div class="col-lg-3 col-6">
-                <!--begin::Small Box Widget 2-->
-                <div class="small-box text-bg-success">
-                  <div class="inner">
-                    <h3><?php echo $metrikler->toplam_kategoriler; ?><sup class="fs-5">%</sup></h3>
+              <div class="btn-toolbar d-none d-md-block" role="toolbar" aria-label="Toolbar with buttons">
 
-                    <p>Kategoriler</p>
-                  </div>
-                  <svg
-                    class="small-box-icon"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                     <path fill-rule="evenodd" d="M.5 6a.5.5 0 0 0-.488.608l1.652 7.434A2.5 2.5 0 0 0 4.104 16h5.792a2.5 2.5 0 0 0 2.44-1.958l.131-.59a3 3 0 0 0 1.3-5.854l.221-.99A.5.5 0 0 0 13.5 6zM13 12.5a2 2 0 0 1-.316-.025l.867-3.898A2.001 2.001 0 0 1 13 12.5"/>
-  <path d="m4.4.8-.003.004-.014.019a4 4 0 0 0-.204.31 2 2 0 0 0-.141.267c-.026.06-.034.092-.037.103v.004a.6.6 0 0 0 .091.248c.075.133.178.272.308.445l.01.012c.118.158.26.347.37.543.112.2.22.455.22.745 0 .188-.065.368-.119.494a3 3 0 0 1-.202.388 5 5 0 0 1-.253.382l-.018.025-.005.008-.002.002A.5.5 0 0 1 3.6 4.2l.003-.004.014-.019a4 4 0 0 0 .204-.31 2 2 0 0 0 .141-.267c.026-.06.034-.092.037-.103a.6.6 0 0 0-.09-.252A4 4 0 0 0 3.6 2.8l-.01-.012a5 5 0 0 1-.37-.543A1.53 1.53 0 0 1 3 1.5c0-.188.065-.368.119-.494.059-.138.134-.274.202-.388a6 6 0 0 1 .253-.382l.025-.035A.5.5 0 0 1 4.4.8m3 0-.003.004-.014.019a4 4 0 0 0-.204.31 2 2 0 0 0-.141.267c-.026.06-.034.092-.037.103v.004a.6.6 0 0 0 .091.248c.075.133.178.272.308.445l.01.012c.118.158.26.347.37.543.112.2.22.455.22.745 0 .188-.065.368-.119.494a3 3 0 0 1-.202.388 5 5 0 0 1-.253.382l-.018.025-.005.008-.002.002A.5.5 0 0 1 6.6 4.2l.003-.004.014-.019a4 4 0 0 0 .204-.31 2 2 0 0 0 .141-.267c.026-.06.034-.092.037-.103a.6.6 0 0 0-.09-.252A4 4 0 0 0 6.6 2.8l-.01-.012a5 5 0 0 1-.37-.543A1.53 1.53 0 0 1 6 1.5c0-.188.065-.368.119-.494.059-.138.134-.274.202-.388a6 6 0 0 1 .253-.382l.025-.035A.5.5 0 0 1 7.4.8m3 0-.003.004-.014.019a4 4 0 0 0-.204.31 2 2 0 0 0-.141.267c-.026.06-.034.092-.037.103v.004a.6.6 0 0 0 .091.248c.075.133.178.272.308.445l.01.012c.118.158.26.347.37.543.112.2.22.455.22.745 0 .188-.065.368-.119.494a3 3 0 0 1-.202.388 5 5 0 0 1-.252.382l-.019.025-.005.008-.002.002A.5.5 0 0 1 9.6 4.2l.003-.004.014-.019a4 4 0 0 0 .204-.31 2 2 0 0 0 .141-.267c.026-.06.034-.092.037-.103a.6.6 0 0 0-.09-.252A4 4 0 0 0 9.6 2.8l-.01-.012a5 5 0 0 1-.37-.543A1.53 1.53 0 0 1 9 1.5c0-.188.065-.368.119-.494.059-.138.134-.274.202-.388a6 6 0 0 1 .253-.382l.025-.035A.5.5 0 0 1 10.4.8"/>
-                  </svg>
-                  <a
-                    href="#"
-                    class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
-                  >
-                    More info <i class="bi bi-link-45deg"></i>
-                  </a>
-                </div>
-
-                <div class="small-box text-bg-success">
-                  <div class="inner">
-                    <h3><?php echo $metrikler->toplam_urunler; ?><sup class="fs-5">%</sup></h3>
-
-                    <p>Ürünler</p>
-                  </div>
-                  <svg
-                    class="small-box-icon"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                     <path fill-rule="evenodd" d="M.5 6a.5.5 0 0 0-.488.608l1.652 7.434A2.5 2.5 0 0 0 4.104 16h5.792a2.5 2.5 0 0 0 2.44-1.958l.131-.59a3 3 0 0 0 1.3-5.854l.221-.99A.5.5 0 0 0 13.5 6zM13 12.5a2 2 0 0 1-.316-.025l.867-3.898A2.001 2.001 0 0 1 13 12.5"/>
-  <path d="m4.4.8-.003.004-.014.019a4 4 0 0 0-.204.31 2 2 0 0 0-.141.267c-.026.06-.034.092-.037.103v.004a.6.6 0 0 0 .091.248c.075.133.178.272.308.445l.01.012c.118.158.26.347.37.543.112.2.22.455.22.745 0 .188-.065.368-.119.494a3 3 0 0 1-.202.388 5 5 0 0 1-.253.382l-.018.025-.005.008-.002.002A.5.5 0 0 1 3.6 4.2l.003-.004.014-.019a4 4 0 0 0 .204-.31 2 2 0 0 0 .141-.267c.026-.06.034-.092.037-.103a.6.6 0 0 0-.09-.252A4 4 0 0 0 3.6 2.8l-.01-.012a5 5 0 0 1-.37-.543A1.53 1.53 0 0 1 3 1.5c0-.188.065-.368.119-.494.059-.138.134-.274.202-.388a6 6 0 0 1 .253-.382l.025-.035A.5.5 0 0 1 4.4.8m3 0-.003.004-.014.019a4 4 0 0 0-.204.31 2 2 0 0 0-.141.267c-.026.06-.034.092-.037.103v.004a.6.6 0 0 0 .091.248c.075.133.178.272.308.445l.01.012c.118.158.26.347.37.543.112.2.22.455.22.745 0 .188-.065.368-.119.494a3 3 0 0 1-.202.388 5 5 0 0 1-.253.382l-.018.025-.005.008-.002.002A.5.5 0 0 1 6.6 4.2l.003-.004.014-.019a4 4 0 0 0 .204-.31 2 2 0 0 0 .141-.267c.026-.06.034-.092.037-.103a.6.6 0 0 0-.09-.252A4 4 0 0 0 6.6 2.8l-.01-.012a5 5 0 0 1-.37-.543A1.53 1.53 0 0 1 6 1.5c0-.188.065-.368.119-.494.059-.138.134-.274.202-.388a6 6 0 0 1 .253-.382l.025-.035A.5.5 0 0 1 7.4.8m3 0-.003.004-.014.019a4 4 0 0 0-.204.31 2 2 0 0 0-.141.267c-.026.06-.034.092-.037.103v.004a.6.6 0 0 0 .091.248c.075.133.178.272.308.445l.01.012c.118.158.26.347.37.543.112.2.22.455.22.745 0 .188-.065.368-.119.494a3 3 0 0 1-.202.388 5 5 0 0 1-.252.382l-.019.025-.005.008-.002.002A.5.5 0 0 1 9.6 4.2l.003-.004.014-.019a4 4 0 0 0 .204-.31 2 2 0 0 0 .141-.267c.026-.06.034-.092.037-.103a.6.6 0 0 0-.09-.252A4 4 0 0 0 9.6 2.8l-.01-.012a5 5 0 0 1-.37-.543A1.53 1.53 0 0 1 9 1.5c0-.188.065-.368.119-.494.059-.138.134-.274.202-.388a6 6 0 0 1 .253-.382l.025-.035A.5.5 0 0 1 10.4.8"/>
-                  </svg>
-                  <a
-                    href="#"
-                    class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
-                  >
-                    More info <i class="bi bi-link-45deg"></i>
-                  </a>
-                </div>
-                <!--end::Small Box Widget 2-->
               </div>
-              <!--end::Col-->
-              <div class="col-lg-3 col-6">
-                <!--begin::Small Box Widget 3-->
-                <div class="small-box text-bg-warning">
-                  <div class="inner">
-                    <h3><?php echo $metrikler->aktif_kullanici; ?></h3>
+            </div>
+            
+          </div>
 
-                    <p>Kayıtlı Kullanıcı</p>
-                  </div>
-                  <svg
-                    class="small-box-icon"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
-                  </svg>
-                  <a
-                    href="#"
-                    class="small-box-footer link-dark link-underline-opacity-0 link-underline-opacity-50-hover"
-                  >
-                    More info <i class="bi bi-link-45deg"></i>
-                  </a>
-                </div>
-                <!--end::Small Box Widget 3-->
-              </div>
-              <!--end::Col-->
-              <div class="col-lg-3 col-6">
-                <!--begin::Small Box Widget 4-->
-                <div class="small-box text-bg-danger">
-                  <div class="inner">
-                    <h3><?php echo $metrikler->toplam_stokhareketleri; ?></h3>
+            <!--progress bar -->
 
-                    <p>Stok Hareketleri</p>
-                  </div>
-                  <svg
-                    class="small-box-icon"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path d="M14 13.5v-7a.5.5 0 0 0-.5-.5H12V4.5a.5.5 0 0 0-.5-.5h-1v-.5A.5.5 0 0 0 10 3H6a.5.5 0 0 0-.5.5V4h-1a.5.5 0 0 0-.5.5V6H2.5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 .5-.5M3.75 11h.5a.25.25 0 0 1 .25.25v1.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-1.5a.25.25 0 0 1 .25-.25m2 0h.5a.25.25 0 0 1 .25.25v1.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-1.5a.25.25 0 0 1 .25-.25m1.75.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v1.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25zM9.75 11h.5a.25.25 0 0 1 .25.25v1.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-1.5a.25.25 0 0 1 .25-.25m1.75.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v1.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25z"/>
-  <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 2a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z"/>
-                  </svg>
-                  
+          <div class="card-footer">
+            <?php $istatistikler = $code->metrikler(); ?>
+            <div class="row text-center" style="height: 425px;">
+              <div class="d-flex justify-content-around text-center" style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px;">
 
-               
+        <div class="fade-up-card" style="animation-delay: 0.1s; width: 100px;">
+            <div class="fw-bold fs-3 mb-3 sayac" data-hedef="<?php echo $istatistikler->aktif_kullanici; ?>">0</div>
+            <div class="progress-vertical">
+                <?php $yuzdeKullanici = ($istatistikler->aktif_kullanici > 0) ? ($istatistikler->aktif_kullanici / 50) * 100 : 0; ?>
+                <div class="progress-bar bg-success animasyonlu-dikey-bar" role="progressbar" data-height="<?php echo $yuzdeKullanici; ?>%" style="height: 0%"></div>
+            </div>
+            <div class="text-body-secondary mt-3 small">Aktif Kullanıcı</div>
+        </div>
+
+        <div class="fade-up-card" style="animation-delay: 0.3s; width: 100px;">
+            <div class="fw-bold fs-3 mb-3 sayac" data-hedef="<?php echo $istatistikler->toplam_yonetici; ?>">0</div>
+            <div class="progress-vertical">
+                <?php $yuzdeYonetici = ($istatistikler->toplam_yonetici > 0) ? ($istatistikler->toplam_yonetici / 50) * 100 : 0; ?>
+                <div class="progress-bar bg-bordeaux animasyonlu-dikey-bar" role="progressbar" data-height="<?php echo $yuzdeYonetici; ?>%" style="height: 0%"></div>
+            </div>
+            <div class="text-body-secondary mt-3 small">Yöneticiler</div>
+        </div>
+
+        <div class="fade-up-card" style="animation-delay: 0.5s; width: 100px;">
+            <div class="fw-bold fs-3 mb-3 sayac" data-hedef="<?php echo $istatistikler->toplam_kategori; ?>">0</div>
+            <div class="progress-vertical">
+                <?php $yuzdeKategori = ($istatistikler->toplam_kategori > 0) ? ($istatistikler->toplam_kategori / 50) * 100 : 0; ?>
+                <div class="progress-bar bg-beige animasyonlu-dikey-bar" role="progressbar" data-height="<?php echo $yuzdeKategori; ?>%" style="height: 0%"></div>
+            </div>
+            <div class="text-body-secondary mt-3 small">Kategoriler</div>
+        </div>
+
+        <div class="fade-up-card" style="animation-delay: 0.7s; width: 100px;">
+            <div class="fw-bold fs-3 mb-3 sayac" data-hedef="<?php echo $istatistikler->toplam_urun; ?>">0</div>
+            <div class="progress-vertical">
+                <?php $yuzdeUrun = ($istatistikler->toplam_urun > 0) ? ($istatistikler->toplam_urun / 50) * 100 : 0; ?>
+                <div class="progress-bar bg-slate animasyonlu-dikey-bar" role="progressbar" data-height="<?php echo $yuzdeUrun; ?>%" style="height: 0%"></div>
+            </div>
+            <div class="text-body-secondary mt-3 small">Ürünler</div>
+        </div>
+
+    </div>
+    </div>
+            </div>
+          </div>
+        </div>
+
+      </div>

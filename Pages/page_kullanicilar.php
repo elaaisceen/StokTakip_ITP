@@ -1,8 +1,9 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
 <?php
-
-require_once("../Sistem/loader.php");
-
-include("../Sistem/fonksiyon.php");
+require_once __DIR__ . '/../Sistem/loader.php'; 
+require_once __DIR__ . '/../Sistem/fonksiyon.php';
+require_once __DIR__ . '/../Sistem/header.php';
 
 if($code->user->kullanici_rutbe != 7){
 
@@ -93,10 +94,10 @@ exit;
                              </td>
                           <td><?php echo date("d/m/Y", strtotime($kSatir->kayit_tarihi));
                           ?></td>
-                          <td>
-                            <a href="login.php?do=kullaniciduzenle&kullanici_id=<?php echo $kSatir->kullanici_id; ?>" class="btn btn-outline-primary me-2"> <i class="bi bi-pencil"></i> </a>
+                          <td class="text-center align-middle justify-content-center align-items-center gap-2">
+                            <a href="login.php?do=kullaniciduzenle&kullanici_id=<?php echo $kSatir->kullanici_id; ?>" class="btn btn-outline-primary"> <i class="bi bi-pencil mt-3"></i> </a>
 
-                            <a href="login.php?do=kullanicisil&kullanici_id=<?php echo $kSatir->kullanici_id; ?>" class="btn btn-outline-danger" onclick="return confirm('Bu kaydı silmek istediğinizden emin misiniz?')"> <i class="bi bi-trash"></i></a>
+                            <a href="login.php?do=kullanicisil&kullanici_id=<?php echo $kSatir->kullanici_id; ?>" class="btn btn-outline-danger " onclick="return confirm('Bu kaydı silmek istediğinizden emin misiniz?')"> <i  class="bi bi-trash mt-2"></i></a>
                           </td>
                           <?php endforeach; ?>
                       </tbody>
@@ -112,3 +113,4 @@ exit;
           </div>
           <!--end::Container-->
         </div>
+<?php require_once("../Sistem/footer.php"); ?>

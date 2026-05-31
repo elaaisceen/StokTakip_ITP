@@ -9,9 +9,9 @@ exit;
 }
 
 
-  $gelenKullanici=temizle($_GET["kullanici_id"]);
-  $gelenKullanici= (int) $gelenKullanici;
-  $sil=$code->silKullanicilar($gelenKullanici);
+  $girilenHareket=temizle($_GET["hareket_id"]);
+  $girilenHareket= (int) $girilenHareket;
+  $sil=$code->silStokHareketi($girilenHareket);
 ?>
 
 <div class="app-content-header">
@@ -20,14 +20,14 @@ exit;
             <!--begin::Row-->
             <div class="row">
               <div class="col-sm-6">
-                <h3 class="mb-0">Kullanıcılar</h3>
+                <h3 class="mb-0">Stok Hareketleri</h3>
               </div>
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-end">
                   <li class="breadcrumb-item"><a href="login.php?do=anasayfa">Anasayfa</a></li>
-                  <li class="breadcrumb-item " aria-current="page">Kullanıcılar</li>
-                  <li class="breadcrumb-item active " aria-current="page"><a href="login.php?do=kullanicilar">Kullanıcıların Listesi</a></li>
-                  <li class="breadcrumb-item " aria-current="page">Kullanıcılar Sil</li>
+                  <li class="breadcrumb-item " aria-current="page">Stok Hareketleri</li>
+                  <li class="breadcrumb-item active " aria-current="page"><a href="login.php?do=stokHareketleri">Stok Hareketleri Listesi</a></li>
+                  <li class="breadcrumb-item " aria-current="page">Stok Hareketi Sil</li>
                 </ol>
               </div>
             </div>
@@ -40,11 +40,11 @@ exit;
             <!--begin::Row-->
             <div class="row">
               <?php if ($sil){ ?>
-            <div class="alert alert-success">Kullanıcı başarılı bir şekilde silinmiştir.Lütfen bekleyiniz, yönlendiriliyorsunuz...</div>
+            <div class="alert alert-success">Stok Hareketi başarılı bir şekilde silinmiştir.Lütfen bekleyiniz, yönlendiriliyorsunuz...</div>
             <?php 
-              go("Login.php?do=kullanicilar",3);
+              go("Login.php?do=stokHareketleri",3);
             }else{ ?>
-            <div class="alert alert-danger">Hata ! Kullanııcı silinememiştir. Lütfen tekrar deneyiniz.</div>
+            <div class="alert alert-danger">Hata ! Stok Hareketi silinememiştir. Lütfen tekrar deneyiniz.</div>
             <?php } ?>
 </div>
 </div>

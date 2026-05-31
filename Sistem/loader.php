@@ -1,5 +1,12 @@
 <?php 
 
+require_once 'Entities/kullanicilarEntity.php';
+require_once 'Entities/ayarlarEntity.php';
+require_once 'Entities/kategorilerEntity.php';
+require_once 'Entities/urunlerEntity.php';
+require_once 'Entities/stokhareketleriEntity.php';
+
+
 // Tüm Hataları Göster
 error_reporting(E_ALL);
 
